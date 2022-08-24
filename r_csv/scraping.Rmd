@@ -1,0 +1,41 @@
+---
+title: "Practice Assignment II"
+output:
+  html_document:
+    df_print: paged
+---
+
+> Scrape the content of this [wikipedia page](https://en.wikipedia.org/wiki/Comma-separated_values), and save the contents of the table in the page to a CSV file.
+
+##### Import the rvest library.
+```{r}
+library(rvest)
+```
+
+##### Store the page url in a variable.
+```{r}
+url <- "https://en.wikipedia.org/wiki/Comma-separated_values"
+```
+
+##### Retrieve the page HTML.
+```{r}
+html <- read_html(url)
+```
+
+##### Extract the table using the class attribute, and parse it into a dataframe.
+```{r}
+cars_table <- html_node(html, ".wikitable") %>%
+  html_table()
+```
+
+##### Check the contents of the new table.
+```{r}
+cars_table
+```
+
+##### Write the table to a CSV file (use a semi-column as separator, as some of the strings in the table contain commas).
+```{r}
+write.table(cars_table, file = "cars_table.csv", sep = ";")
+```
+
+
